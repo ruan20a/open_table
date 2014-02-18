@@ -1,0 +1,72 @@
+class RestaurantsController < ApplicationController
+
+  # get /restaurants
+  # get /restaurant.json
+  def index
+    @restaurants = Restaurant.all
+  end
+
+  # get /restaurants/1
+  # get /restaurants/1.json
+  def show
+    respond_to do |format|
+      format.html
+      format.json{render json: @restaurant}
+    end
+  end
+
+  # get /restaurants/new
+  def new
+    @restaurant = Restaurant.new
+  end
+
+  # get /restaurants/1/edit
+  def edit
+  end
+
+  # post /restaurants
+  # post /restaurants.json
+  def create
+    @restaurant = Restaurant.new(restaurant_params)
+    respond_to do |format|
+      if @restaurant.save
+        format.html {redirect_to @restaurant, notice: 'Restaurant was successfully created'}
+        format.json {redirect action: 'show', status: :created, location: @restaurant}
+      else
+        format.html {render action: 'new'}
+        format.json {render json: @restaurant.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  #PATCH/PUT /items/1
+  #PATCH/PUT /items/1.json
+  def update
+    respond_to do |format|
+      if @restaurant.update(restaurant_params)
+        format.html {redirect_to @restaurant, notice: 'Restaurant successfully updated.'}
+        format.json {header :no_content}
+      else
+        format.html {render action: 'edit'}
+        format.json {render json: @restaurant.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  # DELETE /items/1
+  # DELETE /items/1.json
+  def destroy
+    @restaurant.destroy
+    respond_to do |format|
+      format.html {redirect_to restaurants_url}
+      format.json {head :no_content}
+    end
+  end
+
+  private
+
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :description, :address, :phone_number, :photo)
+  end
+
+end
