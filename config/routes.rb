@@ -1,9 +1,7 @@
 OpenTable::Application.routes.draw do
-  root to: 'welcome#index'
 
   resources :restaurants
 
-  get "welcome/index"
   get "/signup" => "users#new"
   get "/login" => "session#new"
   post "/login" => "session#create"
