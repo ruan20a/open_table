@@ -1,0 +1,82 @@
+<%= form_for @restaurant, :class => "form-horizontal", :role => "form" do |f| %>
+
+  <div class="row">
+    <div class="col-sm-10">
+      <%if @restaurant.errors.any? %>
+        <ul>
+          <% @restaurant.errors.full_messages.each do |msg| %>
+          <li> <%= msg%> </li>
+          <%end%>
+        </ul>
+      <%end%>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= f.label :name, :class => "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= f.text_field :name, :value => @restaurant.name, :class => "form-control"%>
+    </div>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <%= f.label :description, :class => "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= f.text_area :description, :value => @restaurant.description, :class=>"form-control"%>
+    </div>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <%= f.label :address, :class => "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= f.text_field :address, :value => @restaurant.address, :class => "form-control"%>
+    </div>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <%= f.label :phone_number, :class => "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= f.text_field :phone_number, :value => @restaurant.phone_number, :class => "form-control"%>
+    </div>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <%= f.label :remote_image_url,"Image URL  ", :class => "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+    <%= f.text_field :remote_image_url, :class => "form-control", :value => @restaurant.image_url%>
+    </div>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-10">
+    <%= f.file_field :image%>
+    </div>
+  </div>
+
+  </br>
+  <div class="row">
+    <label class="col-sm-offset-2 col-sm-10">
+      <%= f.check_box :remove_image %>
+      Remove Image
+    </label>
+  </div>
+
+  </br>
+
+  <div class="row">
+    <div class= "col-sm-offset-2 col-sm-10">
+      <%= f.submit :class => "btn btn-primary" %>
+    </div>
+  </div>
+
+<% end %>

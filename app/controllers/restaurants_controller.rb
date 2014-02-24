@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
   # get /restaurants/1
   # get /restaurants/1.json
   def show
-    @restaurant = Restaurant.find(param[:id])
+    @restaurant = Restaurant.find(params[:id])
     respond_to do |format|
       format.html
       format.json{render json: @restaurant}
@@ -30,6 +30,7 @@ class RestaurantsController < ApplicationController
   # post /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    # binding.pry
     respond_to do |format|
       if @restaurant.save
         format.html {redirect_to @restaurant, notice: 'Restaurant was successfully created'}
@@ -44,7 +45,7 @@ class RestaurantsController < ApplicationController
   #PATCH/PUT /restaurants/1
   #PATCH/PUT /restaurants/1.json
   def update
-    @restaurant = Restaurant.find(param[:id])
+    @restaurant = Restaurant.find(params[:id])
     respond_to do |format|
       if @restaurant.update(restaurant_params)
         format.html {redirect_to @restaurant, notice: 'Restaurant successfully updated.'}
@@ -59,7 +60,7 @@ class RestaurantsController < ApplicationController
   # DELETE /restaurants/1
   # DELETE /restaurants/1.json
   def destroy
-    @restaurant = Restaurant.find(param[:id])
+    @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     respond_to do |format|
       format.html {redirect_to restaurants_url}
@@ -70,7 +71,8 @@ class RestaurantsController < ApplicationController
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :address, :phone_number, :image)
+    params.require(:restaurant).permit(:name, :description, :address, :phone_number, :image, :remote_image_url, :remove_image)
   end
+
 
 end
