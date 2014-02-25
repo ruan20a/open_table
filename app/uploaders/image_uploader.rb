@@ -5,6 +5,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
+  include CarrierWave::MimeTypes
+  # include CarrierWaveDirect::Uploader
+  process :set_content_type #sets mimetype in case it is incorrect
+
+  #carrier_wave backgrounder
+  #carrier_wave direct# quickens
   # Choose what kind of storage to use for this uploader:
   # storage :file
   storage :fog #amazon
@@ -20,6 +26,14 @@ class ImageUploader < CarrierWave::Uploader::Base
     # ActionController::Base.helpers.asset_path ("/assets/" + [version_name, "defaultimage.jpeg"].compact.join('_'))
   end
 
+  # Create different versions of your uploaded files:
+  version :thumbnail do
+    process :resize_to_fill => [300, 250]
+  end
+
+  version :masthead do
+    process :resize_to_fill => [600, 500]
+  end
 
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -36,15 +50,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-
-  # Create different versions of your uploaded files:
-  version :thumbnail do
-    process :resize_to_fill => [300, 250]
-  end
-
-  version :masthead do
-    process :resize_to_fill => [600, 500]
-  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

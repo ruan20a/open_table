@@ -12,8 +12,12 @@ gem 'dotenv-rails'
 # Use for photos
 gem 'carrierwave'
 gem "mini_magick"
-gem "fog", "~> 1.3.1"
+gem "fog", "~> 1.12.1"
 gem "nokogiri"
+gem "carrierwave-aws"
+#makes it quicker
+gem 'carrierwave_direct'
+gem 'sidekiq'
 #haml
 gem "haml-rails", "~> 0.5.3"
 # Use SCSS for stylesheets

@@ -51,7 +51,7 @@
   <div class="row">
     <%= f.label :remote_image_url,"Image URL  ", :class => "col-sm-2 control-label"%>
     <div class="col-sm-10">
-    <%= f.text_field :remote_image_url, :class => "form-control", :value => @restaurant.image_url%>
+    <%= f.text_field :remote_image_url, :class => "form-control"%>
     </div>
   </div>
 
@@ -60,6 +60,9 @@
   <div class="row">
     <div class="col-sm-offset-2 col-sm-10">
     <%= f.file_field :image%>
+    </br>
+      <%= image_tag(@restaurant.image_url(:thumbnail)) if @restaurant.image? %>
+    <%= f.hidden_field :image_cache%>
     </div>
   </div>
 
