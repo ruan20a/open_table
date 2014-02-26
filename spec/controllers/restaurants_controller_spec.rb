@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RestaurantsController do
 
   let(:restaurant) do
-    Restaurant.create(name: "Sample", description: "sample sample", address: "sample address", phone_number: "sample number", image: "sample_image" )
+    Restaurant.create(name: "Sample", description: "sample sample", address: "sample address", phone_number: "sample number", image: "sample_image")
   end
 
   describe "GET index" do

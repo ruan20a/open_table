@@ -1,11 +1,13 @@
 <h1><%= @restaurant.name %></h1>
-
+<div class="row">
 <%= image_tag @restaurant.image_url(:masthead)%>
-
+</div>
 <ul>
   <li> <%=@restaurant.address%> </li>
   <li> <%=@restaurant.phone_number%> </li>
 </ul>
+
+<%=image_tag @restaurant.menu_url%>
 
 <div> <%=link_to 'Edit Restaurant', edit_restaurant_path(:id=>@restaurant.id)%>
 </div>
