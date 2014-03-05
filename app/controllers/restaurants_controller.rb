@@ -1,4 +1,7 @@
 class RestaurantsController < ApplicationController
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_owner, only: [:edit, :update, :destroy]
+  before_action :set_restaurant, only:[:show,:edit,:update,:destroy]
 
   # get /restaurants
   # get /restaurant.json
@@ -9,7 +12,6 @@ class RestaurantsController < ApplicationController
   # get /restaurants/1
   # get /restaurants/1.json
   def show
-    @restaurant = Restaurant.find(params[:id])
     respond_to do |format|
       format.html
       format.json{render json: @restaurant}
@@ -19,18 +21,18 @@ class RestaurantsController < ApplicationController
   # get /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @restaurant.owner_id = current_owner.id
   end
 
   # get /restaurants/1/edit
   def edit
-    @restaurant = Restaurant.find(params[:id])
   end
 
   # post /restaurants
   # post /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    # binding.pry
+    @restaurant.owner_id = current_owner.id
     respond_to do |format|
       if @restaurant.save
         format.html {redirect_to @restaurant, notice: 'Restaurant was successfully created'}
@@ -45,7 +47,6 @@ class RestaurantsController < ApplicationController
   #PATCH/PUT /restaurants/1
   #PATCH/PUT /restaurants/1.json
   def update
-    @restaurant = Restaurant.find(params[:id])
     respond_to do |format|
       if @restaurant.update(restaurant_params)
         format.html {redirect_to @restaurant, notice: 'Restaurant successfully updated.'}
@@ -60,7 +61,6 @@ class RestaurantsController < ApplicationController
   # DELETE /restaurants/1
   # DELETE /restaurants/1.json
   def destroy
-    @restaurant = Restaurant.find(params[:id])
     @restaurant.destroy
     respond_to do |format|
       format.html {redirect_to restaurants_url}
@@ -70,9 +70,18 @@ class RestaurantsController < ApplicationController
 
   private
 
-  def restaurant_params
-    params.require(:restaurant).permit(:name, :description, :address, :phone_number, :image, :image_cache, :remote_image_url, :remove_image,:menu, :menu_cache, :remote_menu_url, :remove_menu)
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
   end
 
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :description, :address, :phone_number, :image, :image_cache, :remote_image_url, :remove_image,:menu, :menu_cache, :remote_menu_url, :remove_menu, :owner_id)
+  end
+
+  def check_owner
+    restaurant = Restaurant.find(params[:id])
+    redirect_to "/owners/sign_in"
+    # redirect_to "/owners/sign_in",method: :get, notice: "You are not the owner of this restaurant. Please login to the correct account." unless current_owner.id == restaurant.owner.id
+  end
 
 end

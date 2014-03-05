@@ -1,0 +1,12 @@
+<h1>Owners</h1>
+
+<ul>
+   <% @owners.each do |owner| %>
+    <li>
+      <%= link_to owner.name, owner_path(id: owner.id)%>
+    </li>
+    <li>
+      <%= owner.restaurants%>
+    </li>
+  <% end %>
+</ul>

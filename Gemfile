@@ -6,6 +6,9 @@ gem 'rails', '4.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# Devise for login
+gem 'devise'
+
 #Loads environment variables from .env into ENV
 gem 'dotenv-rails'
 
