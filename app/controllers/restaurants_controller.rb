@@ -2,16 +2,19 @@ class RestaurantsController < ApplicationController
   before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_owner, only: [:edit, :update, :destroy]
   before_action :set_restaurant, only:[:show,:edit,:update,:destroy]
-
+  helper RestaurantHelper
   # get /restaurants
   # get /restaurant.json
   def index
     @restaurants = Restaurant.all
   end
 
+
+
   # get /restaurants/1
   # get /restaurants/1.json
   def show
+    @restaurant.phone_number = format_show_phone(@restaurant.phone_number)
     respond_to do |format|
       format.html
       format.json{render json: @restaurant}
@@ -32,6 +35,7 @@ class RestaurantsController < ApplicationController
   # post /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    format_submit_phone(@restaurant.phone_number)
     @restaurant.owner_id = current_owner.id
     respond_to do |format|
       if @restaurant.save
@@ -63,7 +67,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant.destroy
     respond_to do |format|
-      format.html {redirect_to restaurants_url}
+      format.html {redirect_to restaurants_path}
       format.json {head :no_content}
     end
   end
@@ -80,7 +84,7 @@ class RestaurantsController < ApplicationController
 
   def check_owner
     restaurant = Restaurant.find(params[:id])
-    redirect_to "/owners/sign_in"
+    redirect_to "/owners/sign_in", notice: "You are not the owner of this restaurant" unless current_owner.id == restaurant.owner_id
     # redirect_to "/owners/sign_in",method: :get, notice: "You are not the owner of this restaurant. Please login to the correct account." unless current_owner.id == restaurant.owner.id
   end
 

@@ -16,4 +16,6 @@ class Restaurant < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :menu, MenuUploader
   belongs_to :owner
+  validates :name, :owner_id, presence: true
+  validates :phone_number, length: {minimum: 10, maximum: 11}, :allow_blank => true
 end
