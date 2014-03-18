@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require parsley
+//= require parsley.extend
+//= require parsley.i18n.fr
 //= require bootstrap.min
 //= require turbolinks
 //= require_tree .

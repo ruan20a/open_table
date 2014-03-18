@@ -25,4 +25,6 @@ class Owner < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :restaurants, dependent: :destroy
   validates :name, :email, presence: true
+  validates :email, uniqueness: true
+  # attr_accessor :password #dont do this affects the password recoverable!!
 end

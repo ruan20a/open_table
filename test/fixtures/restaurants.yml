@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: restaurants
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  description  :text
+#  address      :text
+#  phone_number :string(255)
+#  image        :string(255)
+#  menu         :string(255)
+#  owner_id     :integer
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+restaurant_without_phone_number:
+  name: Haha
+  description: "haha"
+  address: "1719 West 10th St"
+
+restaurant_without_name:
+  description: "haha"
+  address: "1719 West 10th St"
+  phone_number: "6464641815"

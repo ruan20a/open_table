@@ -1,9 +1,11 @@
 class OwnersController < ApplicationController
+  before_action :set_owner, only: [:show, :update, :destroy]
   def index
     @owners = Owner.all
   end
 
   def show
+    @owner
     respond_to do |format|
       format.html
       format.json{render json: @owner}
@@ -11,6 +13,7 @@ class OwnersController < ApplicationController
   end
 
   def new
+    binding.pry
     @owner = Owner.new
   end
 
@@ -57,6 +60,6 @@ class OwnersController < ApplicationController
   end
 
   def owner_params
-    params.require(:owner).permit(:name, :email, :password, :password_confirmation, :remember_me)
+    params.require(:owner).permit(:name, :email, :password, :password_confirmation, :remember_me, :encrypted_password)
   end
 end

@@ -1,21 +1,21 @@
-# == Route Map (Updated 2014-03-03 18:03)
+# == Route Map (Updated 2014-03-17 23:56)
 #
 #                    Prefix Verb   URI Pattern                     Controller#Action
-#         new_owner_session GET    /owners/sign_in(.:format)       devise/sessions#new
-#             owner_session POST   /owners/sign_in(.:format)       devise/sessions#create
-#     destroy_owner_session DELETE /owners/sign_out(.:format)      devise/sessions#destroy
-#            owner_password POST   /owners/password(.:format)      devise/passwords#create
-#        new_owner_password GET    /owners/password/new(.:format)  devise/passwords#new
-#       edit_owner_password GET    /owners/password/edit(.:format) devise/passwords#edit
-#                           PATCH  /owners/password(.:format)      devise/passwords#update
-#                           PUT    /owners/password(.:format)      devise/passwords#update
-# cancel_owner_registration GET    /owners/cancel(.:format)        devise/registrations#cancel
-#        owner_registration POST   /owners(.:format)               devise/registrations#create
-#    new_owner_registration GET    /owners/sign_up(.:format)       devise/registrations#new
-#   edit_owner_registration GET    /owners/edit(.:format)          devise/registrations#edit
-#                           PATCH  /owners(.:format)               devise/registrations#update
-#                           PUT    /owners(.:format)               devise/registrations#update
-#                           DELETE /owners(.:format)               devise/registrations#destroy
+#         new_owner_session GET    /owners/sign_in(.:format)       owners/sessions#new
+#             owner_session POST   /owners/sign_in(.:format)       owners/sessions#create
+#     destroy_owner_session DELETE /owners/sign_out(.:format)      owners/sessions#destroy
+#            owner_password POST   /owners/password(.:format)      owners/passwords#create
+#        new_owner_password GET    /owners/password/new(.:format)  owners/passwords#new
+#       edit_owner_password GET    /owners/password/edit(.:format) owners/passwords#edit
+#                           PATCH  /owners/password(.:format)      owners/passwords#update
+#                           PUT    /owners/password(.:format)      owners/passwords#update
+# cancel_owner_registration GET    /owners/cancel(.:format)        owners/registrations#cancel
+#        owner_registration POST   /owners(.:format)               owners/registrations#create
+#    new_owner_registration GET    /owners/sign_up(.:format)       owners/registrations#new
+#   edit_owner_registration GET    /owners/edit(.:format)          owners/registrations#edit
+#                           PATCH  /owners(.:format)               owners/registrations#update
+#                           PUT    /owners(.:format)               owners/registrations#update
+#                           DELETE /owners(.:format)               owners/registrations#destroy
 #                      root GET    /                               restaurants#index
 #               restaurants GET    /restaurants(.:format)          restaurants#index
 #                           POST   /restaurants(.:format)          restaurants#create
@@ -33,21 +33,30 @@
 #                           PATCH  /owners/:id(.:format)           owners#update
 #                           PUT    /owners/:id(.:format)           owners#update
 #                           DELETE /owners/:id(.:format)           owners#destroy
-#                    signup GET    /signup(.:format)               owners#new
+#                   sign_in GET    /sign_in(.:format)              owners/sessions#new
+#                   sign_up GET    /sign_up(.:format)              owners/registrations#new
+#                    logout GET    /logout(.:format)               owners/sessions#destroy
 #                     login GET    /login(.:format)                session#new
 #                           POST   /login(.:format)                session#create
-#                    logout GET    /logout(.:format)               session#destroy
+#                           GET    /logout(.:format)               session#destroy
 #
 
 OpenTable::Application.routes.draw do
 
-  devise_for :owners
+  devise_for :owners, controllers: {registrations: "owners/registrations", passwords: "owners/passwords", sessions: "owners/sessions"}
   root :to => "restaurants#index"
 
   resources :restaurants
   resources :owners
 
-  get "/signup" => "owners#new"
+  #configure routes
+  devise_scope :owner do
+    get "sign_in", to: "owners/sessions#new"
+    get "sign_up", to: "owners/registrations#new"
+    get "logout", to: "owners/sessions#destroy"
+  end
+
+
   get "/login" => "session#new"
   post "/login" => "session#create"
   get "/logout" => "session#destroy"

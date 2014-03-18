@@ -9,8 +9,6 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
   end
 
-
-
   # get /restaurants/1
   # get /restaurants/1.json
   def show
