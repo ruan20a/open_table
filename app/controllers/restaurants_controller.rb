@@ -12,7 +12,7 @@ class RestaurantsController < ApplicationController
   # get /restaurants/1
   # get /restaurants/1.json
   def show
-    @restaurant.phone_number = format_show_phone(@restaurant.phone_number)
+    # @restaurant.phone_number = format_show_phone(@restaurant.phone_number)
     respond_to do |format|
       format.html
       format.json{render json: @restaurant}
@@ -33,7 +33,8 @@ class RestaurantsController < ApplicationController
   # post /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    format_submit_phone(@restaurant.phone_number)
+    #TODO format phone number correctly
+    # format_submit_phone(@restaurant.phone_number)
     @restaurant.owner_id = current_owner.id
     respond_to do |format|
       if @restaurant.save
