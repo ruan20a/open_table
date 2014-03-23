@@ -1,0 +1,13 @@
+<!-- Reservation Form -->
+<div class="row col-md-3">
+  <strong> Reservation Form </strong>
+</div>
+
+<br>
+
+<%= form_for @reservation, :class => :"form-horizontal" do |f| %>
+  <%= fields_for @reservation do |builder| %>
+  <%= render 'questions', f:builder%>
+  <% end %>
+<% end %>
+

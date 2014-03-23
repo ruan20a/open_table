@@ -21,8 +21,6 @@ gem "carrierwave-aws"
 #makes it quicker
 gem 'carrierwave_direct'
 gem 'sidekiq'
-#haml
-gem "haml-rails", "~> 0.5.3"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

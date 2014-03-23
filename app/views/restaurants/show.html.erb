@@ -11,9 +11,23 @@
 
 <%=image_tag @restaurant.menu_url%>
 
-<% if current_owner.id == @restaurant.owner_id%>
-  <div> <%=link_to 'Edit Restaurant', edit_restaurant_path(:id=>@restaurant.id)%>
-  </div>
-  <div> <%=link_to 'Delete Restaurant', restaurant_path, method: :delete%>
-  </div>
-<%end%>
+<% if !current_owner.nil? %>
+  <% if current_owner.id == @restaurant.owner_id%>
+    <div> <%=link_to 'Edit Restaurant', edit_restaurant_path(:id=>@restaurant.id)%>
+    </div>
+    <div> <%=link_to 'Delete Restaurant', restaurant_path, method: :delete%>
+    </div>
+    <br>
+    <%= render 'reservation_list' %>
+  <% else %>
+    <%= render 'reservation_form'%>
+  <% end %>
+<% else %>
+  <%= render 'reservation_form' %>
+<% end %>
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+<div class="row col-md-12">
+Reservation List
+</div>
+<ul class="row col-offset-2 col-md-10">
+<% @restaurant.reservations.each do |reservation| %>
+  <li>
+  <%= reservation.email %>
+  <%= reservation.request_date %>
+  <%= reservation.message %>
+  <%= link_to 'Confirm Reservation',reservation_path(:reservation_id => reservation.id), method: :delete, :class => "btn btn-default btn-group-sm"%>
+  </li>
+<% end %>
+</ul>

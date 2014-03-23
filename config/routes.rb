@@ -48,7 +48,7 @@ OpenTable::Application.routes.draw do
 
   resources :restaurants
   resources :owners
-
+  resources :reservations
   #configure routes
   devise_scope :owner do
     get "sign_in", to: "owners/sessions#new"

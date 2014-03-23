@@ -12,6 +12,8 @@ class RestaurantsController < ApplicationController
   # get /restaurants/1
   # get /restaurants/1.json
   def show
+    @reservation = Reservation.new
+    @reservation.restaurant_id = @restaurant.id
     # @restaurant.phone_number = format_show_phone(@restaurant.phone_number)
     respond_to do |format|
       format.html
@@ -22,6 +24,7 @@ class RestaurantsController < ApplicationController
   # get /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @reservation = Reservation.new
     @restaurant.owner_id = current_owner.id
   end
 
@@ -67,7 +70,7 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     respond_to do |format|
       format.html {redirect_to restaurants_path}
-      format.json {head :no_content}
+      format.json {header :no_content}
     end
   end
 

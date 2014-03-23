@@ -1,0 +1,32 @@
+<fieldset>
+  <br>
+
+  <div class="row">
+      <%= f.label :email, class: "col-md-2"%>
+      <%= f.text_field :email, class: "col-md-8"%>
+  </div>
+
+  <br>
+
+  <div class= "row">
+      <%= f.label :request_date, class: "col-md-2"%>
+      <%= f.datetime_select  :request_date%>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <%= f.label :message, 'Any specific request?', class: "col-md-2"%>
+    <%= f.text_area :message, class: "col-md-8"%>
+  </div>
+
+  <div class="row">
+    <%= f.hidden_field :restaurant_id, value: @restaurant.id%>
+  </div>
+
+  <br>
+
+  <div class="row col-md-offset-2">
+    <%= f.submit :class => "btn btn-primary"%>
+  </div>
+</fieldset>
