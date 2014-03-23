@@ -1,5 +1,13 @@
 class OwnersController < ApplicationController
   before_action :set_owner, only: [:show, :update, :destroy]
+  before_action :verify_current_owner, only: [:dashboard, :show, :edit, :update, :new, :create]
+
+
+  def dashboard
+    @owner = Owner.find(current_owner.id)
+    @restaurants = @owner.restaurants
+  end
+
   def index
     @owners = Owner.all
   end
@@ -49,7 +57,7 @@ class OwnersController < ApplicationController
     @owner.destroy
     respond_to do |format|
       format.html {redirect_to owners_url}
-      format.json {header :no_content}
+      format.json {head :no_content}
     end
   end
 
@@ -61,5 +69,11 @@ class OwnersController < ApplicationController
 
   def owner_params
     params.require(:owner).permit(:name, :email, :password, :password_confirmation, :remember_me, :encrypted_password)
+  end
+
+  def verify_current_owner
+    if current_owner.nil?
+      redirect_to new_owner_session_path, notice: 'Please sign in to view the page'
+    end
   end
 end

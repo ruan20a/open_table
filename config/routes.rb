@@ -56,7 +56,7 @@ OpenTable::Application.routes.draw do
     get "logout", to: "owners/sessions#destroy"
   end
 
-
+  get "/dashboard" => "owners#dashboard"
   get "/login" => "session#new"
   post "/login" => "session#create"
   get "/logout" => "session#destroy"

@@ -12,6 +12,7 @@ gem 'devise'
 #Loads environment variables from .env into ENV
 gem 'dotenv-rails'
 
+
 # Use for photos
 gem 'carrierwave'
 gem "mini_magick"

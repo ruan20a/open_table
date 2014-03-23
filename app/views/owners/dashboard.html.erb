@@ -1,0 +1,14 @@
+<ul>My Restaurants
+<%@restaurants.each do |restaurant|%>
+  <br>
+  <li class="row">
+    <div class="col-md-2">
+      <%=restaurant.name.titleize%>
+    </div>
+
+    <div class="col-md-2">
+      <button> <%=link_to 'View', restaurant_path(:id=>restaurant.id)%> </button>
+    </div>
+  </li>
+<%end%>
+</ul>

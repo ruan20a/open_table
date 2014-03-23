@@ -1,0 +1,21 @@
+<h1> Hello <%= @owner.name.titleize %>, </h1>
+
+  <div><strong> <%= @restaurant.name %>'s </strong> has a new reservation at <strong> <%= @reservation.request_time %> </strong> Please confirm the reservation with <strong> <%=@reservation.email%> </strong>
+  </div>
+
+  <%=if !@reservation.message.empty?%>
+    <div>
+      Reservation Message
+    </div>
+    <div>
+      <%=@reservation.message
+    </div>
+  <% end %>
+
+  <br>
+
+  <div>
+  Thanks,
+  <br>
+  Open Table
+  </div>

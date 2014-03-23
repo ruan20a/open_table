@@ -20,15 +20,17 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
-    binding.pry
+    reservation = Reservation.new(reservation_params)
+    restaurant = reservation.restaurant
+    owner = restaurant.owner
     respond_to do |format|
       if @reservation.save
-        format.html {redirect_to @reservation, notice: 'Reservation was successfully created'}
-        format.json {redirect action: 'show', status: :created, location: @reservation}
+        ReservationMailer.reservation_notification(owner, restaurant, reservation)
+        format.html {redirect_to reservation, notice: 'Reservation was successfully created'}
+        format.json {redirect action: 'show', status: :created, location: reservation}
       else
         format.html{render action: 'new'}
-        format.json{render json:@reservation.errors, status: :unprocessable_entity}
+        format.json{render json:reservation.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -65,5 +67,4 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:email, :request_date, :message, :restaurant_id)
   end
-
 end
